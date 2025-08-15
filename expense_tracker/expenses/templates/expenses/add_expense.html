@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+  Add Expense 
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-4 text-center">Add Expense</h1>
+    <form method="POST" class="p-4 border rounded shadow-sm bg-light">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="id_category" class="form-label">Category</label>
+        {{ form.category|add_class:"form-select" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_amount" class="form-label">Amount (₹)</label>
+        {{ form.amount|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_date" class="form-label">Date</label>
+        {{ form.date|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_description" class="form-label">Description</label>
+        {{ form.description|add_class:"form-control" }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add</button>
+      <a href="{% url 'expense_list' %}" class="btn btn-secondary">Back to list</a>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense list</title>
+  </head>
+  <body>
+    <h1>Expense List</h1>
+    <a href="{% url 'add_expense' %}">Add New Expense</a>
+    <ul>
+      {% for expense in expenses %}
+        <li>{{ expense.date|default:expense.date|date:'d-m-Y' }} - {{ expense.category }} - {{ expense.description }} - {{ expense.amount }}</li>
+      {% empty %}
+        <li>No Expenses Yet</li>
+      {% endfor %}
+    </ul>
+    <p>Total Expense : ₹{{ total }}</p>
+  </body>
+</html> {% endcomment %}
+
+{% block title %}
+  Expense List
+{% endblock %}
+
+{% block content %}
+  <h1 class="my-4">Expense List</h1>
+  {% comment %} <table border="2">
+    <tr>
+      <th>Title</th>
+      <th>Amount (₹)</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+    {% for expense in expenses %}
+      <tr>
+        <td>{{ expense.category }}</td>
+        <td>{{ expense.amount }}</td>
+        <td>{{ expense.date }}</td>
+        <td>{{ expense.description }}</td>
+        <td>
+          <button class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    {% endfor %}
+  </table> {% endcomment %}
+  <table class="table table-bordered my-4 mb-0 text-center align-middle">
+    <thead class="">
+      <tr>
+        <th>Category</th>
+        <th>Amount (₹)</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      {% for expense in expenses %}
+        <tr>
+          <td>{{ expense.category }}</td>
+          <td>{{ expense.amount }}</td>
+          <td>{{ expense.date|date:"d-m-Y" }}</td>
+          <td>{{ expense.description }}</td>
+          <td>
+            <a href="{% url "delete_expense" expense.id %}" class="btn btn-danger btn-sm delete-btn" style="font-weight: bold; border-radius: 0.5rem;" onclick="handleDelete">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No expenses yet</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="5" class="text">Total Expense : <b>₹{{ total }}</b></td>
+        </tr>
+    </tbody>
+  </table>
+  <p>No expenses recorded yet. <a href="{% url 'add_expense' %}">Add New Expense</a></p>
+  
+  <script src="{% static 'Javascripts/expense.js' %}"></script>
+  {% endblock %}
+
