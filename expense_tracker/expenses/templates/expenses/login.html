@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+  Expenses Track - Login Page
+{% endblock %}
+
+{% block content %}
+  <div class="container" style="display: flex;justify-content: center;align-items: center;height: 80vh;">
+    <form method="POST" style="width: 100%; max-width: 500px; background: #fff; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+      {% csrf_token %}
+      <h2 class="text-center">Login</h2>
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ error }}
+          <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+      {% endfor %}
+        {% for message in messages %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+        {% endfor %}
+
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Username</label>
+        <input type="text" class="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" name="username" {{ form.username.value|default_if_none:'' }} />
+        {% for error in form.username.errors %}
+          <div class="text-danger small">* {{ error }}</div>
+        {% endfor %}
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" />
+        {% for error in form.password.errors %}
+          <div class="text-danger small">* {{ error }}</div>
+        {% endfor %}
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" class="btn btn-outline-primary font-bold" style="width: 100%;font-weight: bolder;">Login</button>
+      <p class="mt-4 text-center">
+        Don't have an account? <a href="{% url 'signup' %}" class="link-info">Register here</a>
+      </p>
+    </form>
+  </div>
+{% endblock %}
