@@ -16,4 +16,5 @@ jobs:
 
       - name: Build Docker image
         run: |
+          cd expense_tracker
           docker build -t expense-tracker .
