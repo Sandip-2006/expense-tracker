@@ -24,4 +24,4 @@ EXPOSE 8000
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 # 10️⃣ Optional: Use a production-ready server like Gunicorn
-CMD ["gunicorn", "expense_tracker.wsgi:application", "--bind", "0. 0.0.0:8000"]
+CMD ["gunicorn", "expense_tracker.wsgi:application", "--bind", "0.0.0.0:8000"]
