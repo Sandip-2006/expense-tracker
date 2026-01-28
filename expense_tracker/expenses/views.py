@@ -30,6 +30,27 @@ def add_expense(request):
 
     return render(request, 'expenses/add_expense.html', {'form': form})
 
+@login_required(redirect_field_name='next',login_url='login')
+def edit_expense(request,expense_id):
+    expense = get_object_or_404(Expense,id=expense_id)
+    
+    # Check if the current user owns this expense
+    if expense.user != request.user:
+        messages.error(request, "You can only edit your own expenses.")
+        return redirect('expense_list')
+    
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST,instance=expense)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Expense updated successfully!")
+            return redirect('expense_list')
+    else:
+        form = ExpenseForm(instance=expense)
+    
+    return render(request,'expenses/edit_expense.html',{'form':form})
+
+
 def delete_expense(request,expense_id):
     expense = get_object_or_404(Expense,id=expense_id)
     expense.delete()

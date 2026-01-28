@@ -26,6 +26,7 @@
           <td>{{ expense.date|date:"d-m-Y" }}</td>
           <td>{{ expense.description }}</td>
           <td>
+            <a href="{% url "edit_expense" expense.id %}" class="btn btn-primary btn-sm edit-btn" style="font-weight: bold; border-radius: 0.5rem;">Edit</a>
             <a href="{% url "delete_expense" expense.id %}" class="btn btn-danger btn-sm delete-btn" style="font-weight: bold; border-radius: 0.5rem;" onclick="handleDelete">Delete</a>
           </td>
         </tr>
